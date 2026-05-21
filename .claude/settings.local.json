@@ -12,7 +12,9 @@
       "WebFetch(domain:bootflare.com)",
       "WebFetch(domain:jobs.dayforcehcm.com)",
       "WebFetch(domain:www.linkedin.com)",
-      "WebFetch(domain:shopdevrystore.com)"
+      "WebFetch(domain:shopdevrystore.com)",
+      "Skill(browse)",
+      "Skill(browse:*)"
     ]
   }
 }

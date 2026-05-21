@@ -76,7 +76,7 @@ export default function PromptOpsCenter() {
   return (
     <div className="flex h-full overflow-hidden">
       {/* Left: Registry */}
-      <div className="flex-1 overflow-y-auto p-5 bg-[#F8F8F8]">
+      <div className="flex-1 overflow-y-auto px-6 py-6 bg-[#F8F8F8]">
         <div className="max-w-3xl mx-auto space-y-4">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">

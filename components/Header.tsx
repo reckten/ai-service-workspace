@@ -29,7 +29,7 @@ export default function Header() {
       {/* Yellow accent stripe at top */}
       <div className="h-0.5 bg-[#FFD200]" />
 
-      <div className="flex items-center justify-between px-5 h-13 py-2">
+      <div className="flex items-center justify-between px-5 h-14">
         {/* Logo + Wordmark */}
         <div className="flex items-center gap-3">
           <DeVryLogoMark size={34} />

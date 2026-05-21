@@ -75,7 +75,7 @@ export default function GovernanceDashboard() {
   return (
     <div className="flex h-full overflow-hidden">
       {/* Main content */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-6 bg-[#F8F8F8]">
+      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 bg-[#F8F8F8]">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>

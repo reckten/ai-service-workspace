@@ -143,7 +143,7 @@ export default function EvalSuite() {
   return (
     <div className="flex h-full overflow-hidden">
       {/* Left: Test results */}
-      <div className="flex-1 overflow-y-auto p-5 bg-[#F8F8F8]">
+      <div className="flex-1 overflow-y-auto px-6 py-6 bg-[#F8F8F8]">
         {/* Controls */}
         <div className="flex items-center justify-between mb-5">
           <div>

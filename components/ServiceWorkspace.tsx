@@ -139,7 +139,7 @@ export default function ServiceWorkspace() {
       {/* Left: Chat */}
       <div className="flex flex-col flex-1 min-w-0 border-r border-gray-200">
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F8F8]">
+        <div className="flex-1 overflow-y-auto px-6 py-5 space-y-4 bg-[#F8F8F8]">
           {messages.map((msg) => (
             <div key={msg.id} className={cn("flex gap-3 animate-fade-in", msg.role === "user" && "justify-end")}>
               {msg.role === "assistant" && (
@@ -267,7 +267,7 @@ export default function ServiceWorkspace() {
 
         {/* Suggested queries */}
         {messages.length <= 1 && (
-          <div className="px-4 pb-2 flex flex-wrap gap-2 bg-[#F8F8F8]">
+          <div className="px-6 pb-4 pt-1 flex flex-wrap gap-2 bg-[#F8F8F8]">
             {SUGGESTED_QUERIES.map((q) => (
               <button
                 key={q}
@@ -281,7 +281,7 @@ export default function ServiceWorkspace() {
         )}
 
         {/* Input */}
-        <div className="border-t border-gray-200 p-4 bg-white">
+        <div className="border-t border-gray-200 px-6 py-4 bg-white">
           <div className="flex gap-2">
             <input
               ref={inputRef}
@@ -309,7 +309,7 @@ export default function ServiceWorkspace() {
 
       {/* Right: Knowledge Panel */}
       <div className="w-80 flex-none bg-white overflow-y-auto">
-        <div className="p-4 border-b border-gray-100">
+        <div className="px-5 py-4 border-b border-gray-100">
           <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Knowledge Sources</h3>
         </div>
 
@@ -347,9 +347,9 @@ export default function ServiceWorkspace() {
             })}
           </div>
         ) : (
-          <div className="p-6 text-center">
+          <div className="px-5 py-8 text-center">
             <BookOpen size={24} className="mx-auto text-gray-300 mb-2" />
-            <p className="text-xs text-gray-400">Send a message to see which knowledge sources were retrieved</p>
+            <p className="text-xs text-gray-400 leading-relaxed">Send a message to see which knowledge sources were retrieved</p>
           </div>
         )}
 
@@ -372,8 +372,8 @@ export default function ServiceWorkspace() {
         )}
 
         {/* Static knowledge base list */}
-        <div className="p-3 border-t border-gray-100">
-          <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Knowledge Base</h4>
+        <div className="px-5 py-4 border-t border-gray-100">
+          <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Knowledge Base</h4>
           <div className="space-y-1">
             {[
               { name: "Academic Catalog 2025–2026", docs: 5 },
@@ -381,12 +381,12 @@ export default function ServiceWorkspace() {
               { name: "Financial Aid FAQ 2025", docs: 3 },
               { name: "Student Handbook 2025–2026", docs: 4 },
             ].map((kb) => (
-              <div key={kb.name} className="flex items-center justify-between py-1.5 px-2 rounded hover:bg-[#F8F8F8]">
+              <div key={kb.name} className="flex items-center justify-between py-2 px-3 rounded hover:bg-[#F8F8F8]">
                 <div>
                   <div className="text-xs font-medium text-[#333333]">{kb.name}</div>
-                  <div className="text-xs text-gray-400">{kb.docs} chunks</div>
+                  <div className="text-xs text-gray-400 mt-0.5">{kb.docs} chunks</div>
                 </div>
-                <span className="text-xs text-emerald-600 font-medium">Active</span>
+                <span className="text-xs text-emerald-600 font-semibold flex-none ml-2">Active</span>
               </div>
             ))}
           </div>
