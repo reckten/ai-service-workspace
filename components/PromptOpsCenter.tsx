@@ -50,7 +50,7 @@ function MetricBar({ value, label }: { value: number; label: string }) {
     <div className="space-y-1">
       <div className="flex justify-between items-center">
         <span className="text-xs text-gray-500">{label}</span>
-        <span className="text-xs font-semibold text-gray-700">{value}%</span>
+        <span className="text-xs font-semibold text-[#333333]">{value}%</span>
       </div>
       <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
         <div className={cn("h-full rounded-full transition-all", color)} style={{ width: `${value}%` }} />
@@ -76,24 +76,24 @@ export default function PromptOpsCenter() {
   return (
     <div className="flex h-full overflow-hidden">
       {/* Left: Registry */}
-      <div className="flex-1 overflow-y-auto p-5">
+      <div className="flex-1 overflow-y-auto p-5 bg-[#F8F8F8]">
         <div className="max-w-3xl mx-auto space-y-4">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-lg font-bold text-gray-900">Prompt Registry</h2>
+              <h2 className="text-lg font-bold text-[#333333]">Prompt Registry</h2>
               <p className="text-sm text-gray-500 mt-0.5">
-                Deployment target: <span className="font-medium text-gray-700">Student Services</span>
+                Deployment target: <span className="font-medium text-[#333333]">Student Services</span>
               </p>
             </div>
-            <button className="flex items-center gap-2 px-3 py-2 bg-[#f47920] text-white text-sm font-medium rounded-lg hover:bg-[#c45e10] transition-colors">
+            <button className="flex items-center gap-2 px-3 py-2 bg-[#0033E1] text-white text-sm font-medium rounded-lg hover:bg-[#0026b0] transition-colors">
               <GitBranch size={14} />
               New Version
             </button>
           </div>
 
           {/* Column headers */}
-          <div className="grid grid-cols-[80px_1fr_110px_100px_100px_80px] gap-3 px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider border-b border-gray-100 pb-2">
+          <div className="grid grid-cols-[80px_1fr_110px_100px_100px_80px] gap-3 px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider border-b border-gray-200 pb-2">
             <span>Version</span>
             <span>Changelog</span>
             <span>Status</span>
@@ -113,7 +113,7 @@ export default function PromptOpsCenter() {
                 key={pv.id}
                 className={cn(
                   "rounded-xl border transition-all",
-                  isActive ? "border-[#f47920] shadow-sm" : "border-gray-200",
+                  isActive ? "border-[#0033E1] shadow-sm" : "border-gray-200",
                   isExpanded && "shadow-md"
                 )}
               >
@@ -121,13 +121,13 @@ export default function PromptOpsCenter() {
                 <div
                   className={cn(
                     "grid grid-cols-[80px_1fr_110px_100px_100px_80px] gap-3 items-center px-3 py-3 cursor-pointer rounded-xl",
-                    isActive ? "bg-orange-50" : "bg-white hover:bg-gray-50"
+                    isActive ? "bg-[#e8eeff]" : "bg-white hover:bg-[#F8F8F8]"
                   )}
                   onClick={() => toggleExpand(pv.id)}
                 >
                   <div className="flex items-center gap-1.5">
-                    <span className="font-mono font-bold text-sm text-gray-800">{pv.version}</span>
-                    {isActive && <div className="w-1.5 h-1.5 bg-[#f47920] rounded-full animate-pulse" />}
+                    <span className="font-mono font-bold text-sm text-[#333333]">{pv.version}</span>
+                    {isActive && <div className="w-1.5 h-1.5 bg-[#0033E1] rounded-full animate-pulse" />}
                   </div>
                   <span className="text-xs text-gray-500 truncate">{pv.changelog}</span>
                   <StatusBadge status={pv.status} />
@@ -143,32 +143,32 @@ export default function PromptOpsCenter() {
                   <div className="border-t border-gray-100 px-4 py-4 space-y-4 bg-white rounded-b-xl">
                     {/* Config grid */}
                     <div className="grid grid-cols-3 gap-3">
-                      <div className="bg-gray-50 rounded-lg p-3">
+                      <div className="bg-[#F8F8F8] rounded-lg p-3">
                         <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1">
                           <Shield size={10} />
                           Safety Profile
                         </div>
-                        <span className="text-sm font-semibold text-gray-800 capitalize">{pv.safetyProfile}</span>
+                        <span className="text-sm font-semibold text-[#333333] capitalize">{pv.safetyProfile}</span>
                       </div>
-                      <div className="bg-gray-50 rounded-lg p-3">
+                      <div className="bg-[#F8F8F8] rounded-lg p-3">
                         <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1">
                           <Layers size={10} />
                           Retrieval
                         </div>
-                        <span className="text-sm font-semibold text-gray-800 capitalize">{pv.retrievalStrictness}</span>
+                        <span className="text-sm font-semibold text-[#333333] capitalize">{pv.retrievalStrictness}</span>
                       </div>
-                      <div className="bg-gray-50 rounded-lg p-3">
+                      <div className="bg-[#F8F8F8] rounded-lg p-3">
                         <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1">
                           <Target size={10} />
                           Escalation
                         </div>
-                        <span className="text-sm font-semibold text-gray-800 capitalize">{pv.escalationThreshold} threshold</span>
+                        <span className="text-sm font-semibold text-[#333333] capitalize">{pv.escalationThreshold} threshold</span>
                       </div>
                     </div>
 
                     {/* Metrics */}
                     {pv.stats && (
-                      <div className="space-y-2 bg-gray-50 rounded-lg p-3">
+                      <div className="space-y-2 bg-[#F8F8F8] rounded-lg p-3">
                         <h4 className="text-xs font-semibold text-gray-600 uppercase tracking-wider">Evaluation Metrics</h4>
                         <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                           <MetricBar value={pv.stats.groundedResponseRate} label="Grounded Response Rate" />
@@ -177,8 +177,8 @@ export default function PromptOpsCenter() {
                           <MetricBar value={pv.stats.policyAdherence} label="Policy Adherence" />
                         </div>
                         <div className="flex gap-4 pt-1 text-xs text-gray-500">
-                          <span>Fallback rate: <strong className="text-gray-700">{pv.stats.fallbackRate}%</strong></span>
-                          <span>Hallucinations: <strong className="text-gray-700">{pv.stats.hallucinationCount}/{pv.stats.totalTests}</strong></span>
+                          <span>Fallback rate: <strong className="text-[#333333]">{pv.stats.fallbackRate}%</strong></span>
+                          <span>Hallucinations: <strong className="text-[#333333]">{pv.stats.hallucinationCount}/{pv.stats.totalTests}</strong></span>
                         </div>
                       </div>
                     )}
@@ -190,7 +190,7 @@ export default function PromptOpsCenter() {
                         {pv.status !== "deployed" && pv.status !== "deprecated" && (
                           <button
                             onClick={(e) => { e.stopPropagation(); isEditing ? setEditing(null) : startEdit(pv); }}
-                            className="text-xs text-[#f47920] hover:underline flex items-center gap-1"
+                            className="text-xs text-[#0033E1] hover:underline flex items-center gap-1"
                           >
                             <Edit3 size={10} />
                             {isEditing ? "Cancel" : "Edit"}
@@ -202,11 +202,11 @@ export default function PromptOpsCenter() {
                           <textarea
                             value={editedPrompt}
                             onChange={(e) => setEditedPrompt(e.target.value)}
-                            className="w-full h-48 font-mono text-xs bg-gray-900 text-gray-100 p-3 rounded-lg border border-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-[#f47920]/50"
+                            className="w-full h-48 font-mono text-xs bg-gray-900 text-gray-100 p-3 rounded-lg border border-gray-700 resize-none focus:outline-none focus:ring-2 focus:ring-[#0033E1]/50"
                             onClick={(e) => e.stopPropagation()}
                           />
                           <div className="flex gap-2">
-                            <button className="px-3 py-1.5 bg-[#f47920] text-white text-xs rounded-lg hover:bg-[#c45e10]">
+                            <button className="px-3 py-1.5 bg-[#0033E1] text-white text-xs rounded-lg hover:bg-[#0026b0]">
                               Save Draft
                             </button>
                             <button onClick={() => setEditing(null)} className="px-3 py-1.5 bg-gray-100 text-gray-600 text-xs rounded-lg hover:bg-gray-200">
@@ -229,10 +229,9 @@ export default function PromptOpsCenter() {
                         <span className="text-amber-600">Pending approval</span>
                       )}
 
-                      {/* Action buttons */}
                       <div className="ml-auto flex gap-2">
                         {pv.status === "staged" && (
-                          <button className="flex items-center gap-1 px-2.5 py-1.5 bg-[#f47920] text-white text-xs rounded-lg hover:bg-[#c45e10]">
+                          <button className="flex items-center gap-1 px-2.5 py-1.5 bg-[#0033E1] text-white text-xs rounded-lg hover:bg-[#0026b0]">
                             <Rocket size={10} />
                             Deploy
                           </button>
@@ -262,10 +261,10 @@ export default function PromptOpsCenter() {
               const cfg = statusConfig[pv.status];
               const Icon = cfg.icon;
               return (
-                <div key={pv.id} className="flex items-center justify-between py-2 px-3 rounded-lg bg-gray-50">
+                <div key={pv.id} className="flex items-center justify-between py-2 px-3 rounded-lg bg-[#F8F8F8]">
                   <div className="flex items-center gap-2">
                     <Icon size={12} className={cfg.color} />
-                    <span className="text-xs font-mono font-semibold text-gray-700">{pv.version}</span>
+                    <span className="text-xs font-mono font-semibold text-[#333333]">{pv.version}</span>
                   </div>
                   <StatusBadge status={pv.status} />
                 </div>
@@ -298,7 +297,7 @@ export default function PromptOpsCenter() {
                       <div className="h-full bg-gray-400 rounded-full" style={{ width: `${m.v2}%` }} />
                     </div>
                     <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <div className="h-full bg-[#f47920] rounded-full" style={{ width: `${m.v3}%` }} />
+                      <div className="h-full bg-[#0033E1] rounded-full" style={{ width: `${m.v3}%` }} />
                     </div>
                   </div>
                   <div className="flex justify-between text-xs text-gray-400">
@@ -316,7 +315,7 @@ export default function PromptOpsCenter() {
           <div className="space-y-1.5 text-xs text-gray-600">
             {["Edit → Test", "Test → Stage", "Stage → Deploy", "Deploy → Rollback"].map((gate, i) => (
               <div key={gate} className="flex items-center gap-2 py-1">
-                <div className={cn("w-1.5 h-1.5 rounded-full", i < 2 ? "bg-emerald-500" : i === 2 ? "bg-blue-500" : "bg-gray-300")} />
+                <div className={cn("w-1.5 h-1.5 rounded-full", i < 2 ? "bg-emerald-500" : i === 2 ? "bg-[#0033E1]" : "bg-gray-300")} />
                 {gate}
               </div>
             ))}

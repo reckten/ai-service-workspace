@@ -38,8 +38,8 @@ export default function Home() {
                 className={cn(
                   "flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-all whitespace-nowrap",
                   isActive
-                    ? "text-[#f47920] border-[#f47920] bg-orange-50"
-                    : "text-gray-500 border-transparent hover:text-[#f47920] hover:bg-orange-50"
+                    ? "text-[#0033E1] border-[#0033E1] bg-[#e8eeff]"
+                    : "text-gray-500 border-transparent hover:text-[#0033E1] hover:bg-[#e8eeff]"
                 )}
               >
                 <Icon size={15} />

@@ -4,8 +4,8 @@ import { useState } from "react";
 import { testSuite, precomputedResults } from "@/data/eval-suites";
 import { promptRegistry } from "@/data/prompts";
 import {
-  Play, CheckCircle2, XCircle, AlertCircle, ChevronDown, ChevronUp,
-  Loader2, RefreshCw, BarChart3, Brain, Shield, Mic
+  Play, CheckCircle2, XCircle, ChevronDown, ChevronUp,
+  Loader2, BarChart3, Shield, Check, X, Clock, AlertCircle
 } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -140,26 +140,23 @@ export default function EvalSuite() {
     ? results
     : results.filter((r) => r.category === filterCategory);
 
-  const passRate = summary ? Math.round((summary.passed / summary.totalTests) * 100) : 0;
-
   return (
     <div className="flex h-full overflow-hidden">
       {/* Left: Test results */}
-      <div className="flex-1 overflow-y-auto p-5">
+      <div className="flex-1 overflow-y-auto p-5 bg-[#F8F8F8]">
         {/* Controls */}
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h2 className="text-lg font-bold text-gray-900">Evaluation Suite</h2>
+            <h2 className="text-lg font-bold text-[#333333]">Evaluation Suite</h2>
             <p className="text-sm text-gray-500 mt-0.5">12 test cases · Student Services domain</p>
           </div>
           <div className="flex items-center gap-3">
-            {/* Version selector */}
             <div className="flex items-center gap-2">
               <label className="text-xs text-gray-500 font-medium">Test against:</label>
               <select
                 value={selectedVersionId}
                 onChange={(e) => loadPrecomputed(e.target.value)}
-                className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#f47920]/30"
+                className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-[#0033E1]/20"
               >
                 {promptRegistry
                   .filter((p) => p.status !== "deprecated")
@@ -170,11 +167,10 @@ export default function EvalSuite() {
                   ))}
               </select>
             </div>
-
             <button
               onClick={runEvaluation}
               disabled={isRunning}
-              className="flex items-center gap-2 px-4 py-2 bg-[#f47920] text-white text-sm font-medium rounded-lg hover:bg-[#c45e10] disabled:opacity-50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-[#0033E1] text-white text-sm font-medium rounded-lg hover:bg-[#0026b0] disabled:opacity-50 transition-colors"
             >
               {isRunning ? (
                 <><Loader2 size={14} className="animate-spin" /> Running…</>
@@ -189,15 +185,15 @@ export default function EvalSuite() {
         {summary && (
           <div className="grid grid-cols-4 gap-3 mb-5">
             {[
-              { label: "Grounded Response Rate", value: summary.groundedResponseRate, compare: compareSummary?.groundedResponseRate, suffix: "%" },
-              { label: "Tone Compliance", value: summary.toneCompliance, compare: compareSummary?.toneCompliance, suffix: "%" },
-              { label: "Escalation Accuracy", value: summary.escalationAccuracy, compare: compareSummary?.escalationAccuracy, suffix: "%" },
-              { label: "Policy Adherence", value: summary.policyAdherence, compare: compareSummary?.policyAdherence, suffix: "%" },
+              { label: "Grounded Response Rate", value: summary.groundedResponseRate, compare: compareSummary?.groundedResponseRate },
+              { label: "Tone Compliance", value: summary.toneCompliance, compare: compareSummary?.toneCompliance },
+              { label: "Escalation Accuracy", value: summary.escalationAccuracy, compare: compareSummary?.escalationAccuracy },
+              { label: "Policy Adherence", value: summary.policyAdherence, compare: compareSummary?.policyAdherence },
             ].map((m) => {
               const delta = m.compare !== undefined ? m.compare - m.value : null;
               return (
                 <div key={m.label} className="bg-white rounded-xl border border-gray-200 p-4">
-                  <div className="text-2xl font-bold text-gray-900">{m.value}{m.suffix}</div>
+                  <div className="text-2xl font-bold text-[#333333]">{m.value}%</div>
                   <div className="text-xs text-gray-500 mt-1">{m.label}</div>
                   {delta !== null && (
                     <div className={cn("text-xs font-semibold mt-1", delta > 0 ? "text-emerald-600" : delta < 0 ? "text-red-600" : "text-gray-400")}>
@@ -220,11 +216,11 @@ export default function EvalSuite() {
         {summary && (
           <div className="flex items-center gap-6 mb-5 px-1 text-sm">
             <div className="flex items-center gap-2">
-              <div className={cn("w-2 h-2 rounded-full", passRate >= 90 ? "bg-emerald-500" : passRate >= 75 ? "bg-amber-500" : "bg-red-500")} />
-              <span className="text-gray-600">Pass rate: <strong className="text-gray-900">{summary.passed}/{summary.totalTests}</strong></span>
+              <div className={cn("w-2 h-2 rounded-full", summary.passed >= 10 ? "bg-emerald-500" : "bg-amber-500")} />
+              <span className="text-gray-600">Pass rate: <strong className="text-[#333333]">{summary.passed}/{summary.totalTests}</strong></span>
             </div>
-            <div className="text-gray-600">Hallucinations: <strong className="text-gray-900">{summary.hallucinationCount}</strong></div>
-            <div className="text-gray-600">Fallback rate: <strong className="text-gray-900">{summary.fallbackRate}%</strong></div>
+            <div className="text-gray-600">Hallucinations: <strong className="text-[#333333]">{summary.hallucinationCount}</strong></div>
+            <div className="text-gray-600">Fallback rate: <strong className="text-[#333333]">{summary.fallbackRate}%</strong></div>
             {results[0] && (
               <div className="text-gray-400 text-xs ml-auto">
                 Last run: {new Date(results[0].ranAt).toLocaleDateString()} · {promptRegistry.find((p) => p.id === selectedVersionId)?.version}
@@ -242,8 +238,8 @@ export default function EvalSuite() {
               className={cn(
                 "text-xs px-3 py-1.5 rounded-full border whitespace-nowrap transition-colors",
                 filterCategory === cat
-                  ? "bg-[#f47920] text-white border-[#f47920]"
-                  : "bg-white text-gray-600 border-gray-200 hover:border-[#f47920] hover:text-[#f47920]"
+                  ? "bg-[#0033E1] text-white border-[#0033E1]"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-[#0033E1] hover:text-[#0033E1]"
               )}
             >
               {cat}
@@ -291,11 +287,10 @@ export default function EvalSuite() {
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-800 truncate mt-0.5">{result.query}</p>
+                    <p className="text-sm text-[#333333] truncate mt-0.5">{result.query}</p>
                   </div>
 
                   <div className="flex items-center gap-3 flex-none">
-                    {/* Dimension badges */}
                     <div className="flex gap-1">
                       <span className={cn("text-xs px-1.5 py-0.5 rounded font-medium", groundingColors[result.groundingScore])}>
                         {result.groundingScore === "none" ? "fallback" : result.groundingScore}
@@ -317,7 +312,7 @@ export default function EvalSuite() {
                 </div>
 
                 {isExpanded && (
-                  <div className="border-t border-gray-100 px-4 py-3 space-y-3 bg-gray-50 rounded-b-xl">
+                  <div className="border-t border-gray-100 px-4 py-3 space-y-3 bg-[#F8F8F8] rounded-b-xl">
                     <div>
                       <div className="text-xs font-semibold text-gray-500 uppercase mb-1">Expected Behavior</div>
                       <p className="text-sm text-gray-700">{result.expectedBehavior}</p>
@@ -354,7 +349,7 @@ export default function EvalSuite() {
           <select
             value={compareVersionId ?? ""}
             onChange={(e) => setCompareVersionId(e.target.value || null)}
-            className="w-full text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none"
+            className="w-full text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none bg-[#F8F8F8]"
           >
             <option value="">No comparison</option>
             {promptRegistry
@@ -393,7 +388,7 @@ export default function EvalSuite() {
                       <div className="h-full bg-gray-400" style={{ width: `${m.current}%` }} />
                     </div>
                     <div className="flex-1 h-2 bg-gray-100 rounded-r-full overflow-hidden">
-                      <div className="h-full bg-[#f47920]" style={{ width: `${m.compare}%` }} />
+                      <div className="h-full bg-[#0033E1]" style={{ width: `${m.compare}%` }} />
                     </div>
                   </div>
                   <div className="flex justify-between text-xs text-gray-400">
@@ -413,11 +408,11 @@ export default function EvalSuite() {
               </div>
             </div>
 
-            <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
-              <div className="text-xs font-semibold text-[#f47920] mb-1">
+            <div className="bg-[#e8eeff] border border-[#0033E1]/20 rounded-lg p-3">
+              <div className="text-xs font-semibold text-[#0033E1] mb-1">
                 {promptRegistry.find((p) => p.id === compareVersionId)?.version} Recommendation
               </div>
-              <div className="text-xs text-gray-700">
+              <div className="text-xs text-[#333333]">
                 {promptRegistry.find((p) => p.id === compareVersionId)?.evaluationGate === "pass"
                   ? "✅ Ready for deployment — all gates passing"
                   : "⏳ Pending evaluation gate"}

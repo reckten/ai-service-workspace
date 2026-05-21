@@ -94,10 +94,7 @@ export default function ServiceWorkspace() {
       });
 
       const data = await res.json();
-
-      if (data.error) {
-        throw new Error(data.error);
-      }
+      if (data.error) throw new Error(data.error);
 
       const assistantMsg: Message = {
         id: (Date.now() + 1).toString(),
@@ -110,7 +107,7 @@ export default function ServiceWorkspace() {
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
-    } catch (err) {
+    } catch {
       const errMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
@@ -133,7 +130,6 @@ export default function ServiceWorkspace() {
     );
   }
 
-  // Track last assistant message with chunks for right panel
   const lastAssistantWithChunks = [...messages]
     .reverse()
     .find((m) => m.role === "assistant" && ((m.retrievedChunks?.length ?? 0) > 0 || (m.guardrails?.length ?? 0) > 0));
@@ -143,11 +139,11 @@ export default function ServiceWorkspace() {
       {/* Left: Chat */}
       <div className="flex flex-col flex-1 min-w-0 border-r border-gray-200">
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F8F8F8]">
           {messages.map((msg) => (
             <div key={msg.id} className={cn("flex gap-3 animate-fade-in", msg.role === "user" && "justify-end")}>
               {msg.role === "assistant" && (
-                <div className="w-7 h-7 rounded-full bg-[#f47920] flex items-center justify-center flex-none mt-0.5">
+                <div className="w-7 h-7 rounded-full bg-[#0033E1] flex items-center justify-center flex-none mt-0.5">
                   <Bot size={14} className="text-white" />
                 </div>
               )}
@@ -176,8 +172,8 @@ export default function ServiceWorkspace() {
                   className={cn(
                     "px-4 py-3 rounded-2xl text-sm leading-relaxed",
                     msg.role === "user"
-                      ? "bg-[#f47920] text-white rounded-tr-sm"
-                      : "bg-white border border-gray-200 text-gray-800 rounded-tl-sm shadow-sm"
+                      ? "bg-[#0033E1] text-white rounded-tr-sm"
+                      : "bg-white border border-gray-200 text-[#333333] rounded-tl-sm shadow-sm"
                   )}
                 >
                   {msg.content}
@@ -250,7 +246,7 @@ export default function ServiceWorkspace() {
           {/* Loading */}
           {isLoading && (
             <div className="flex gap-3 animate-fade-in">
-              <div className="w-7 h-7 rounded-full bg-[#f47920] flex items-center justify-center flex-none">
+              <div className="w-7 h-7 rounded-full bg-[#0033E1] flex items-center justify-center flex-none">
                 <Bot size={14} className="text-white" />
               </div>
               <div className="bg-white border border-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
@@ -258,7 +254,7 @@ export default function ServiceWorkspace() {
                   {[0, 1, 2].map((i) => (
                     <div
                       key={i}
-                      className="w-1.5 h-1.5 bg-[#f47920] rounded-full animate-pulse-dot"
+                      className="w-1.5 h-1.5 bg-[#0033E1] rounded-full animate-pulse-dot"
                       style={{ animationDelay: `${i * 0.2}s` }}
                     />
                   ))}
@@ -271,12 +267,12 @@ export default function ServiceWorkspace() {
 
         {/* Suggested queries */}
         {messages.length <= 1 && (
-          <div className="px-4 pb-2 flex flex-wrap gap-2">
+          <div className="px-4 pb-2 flex flex-wrap gap-2 bg-[#F8F8F8]">
             {SUGGESTED_QUERIES.map((q) => (
               <button
                 key={q}
                 onClick={() => sendMessage(q)}
-                className="text-xs px-3 py-1.5 bg-white border border-gray-200 rounded-full text-gray-600 hover:border-[#f47920] hover:text-[#f47920] transition-colors"
+                className="text-xs px-3 py-1.5 bg-white border border-gray-200 rounded-full text-gray-600 hover:border-[#0033E1] hover:text-[#0033E1] transition-colors"
               >
                 {q}
               </button>
@@ -293,13 +289,13 @@ export default function ServiceWorkspace() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
               placeholder="Ask about programs, enrollment, financial aid, or academic policies…"
-              className="flex-1 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#f47920]/30 focus:border-[#f47920] transition-all"
+              className="flex-1 px-4 py-2.5 bg-[#F8F8F8] border border-gray-200 rounded-xl text-sm text-[#333333] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0033E1]/20 focus:border-[#0033E1] transition-all"
               disabled={isLoading}
             />
             <button
               onClick={() => sendMessage()}
               disabled={!input.trim() || isLoading}
-              className="px-4 py-2.5 bg-[#f47920] text-white rounded-xl hover:bg-[#c45e10] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+              className="px-4 py-2.5 bg-[#0033E1] text-white rounded-xl hover:bg-[#0026b0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
             >
               {isLoading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
             </button>
@@ -327,12 +323,12 @@ export default function ServiceWorkspace() {
                   onClick={() => setSelectedChunk(selectedChunk?.id === chunk.id ? null : chunk)}
                   className={cn(
                     "w-full text-left p-3 rounded-lg border transition-all hover:shadow-sm",
-                    selectedChunk?.id === chunk.id ? "border-[#f47920] bg-orange-50" : "border-gray-200 hover:border-gray-300"
+                    selectedChunk?.id === chunk.id ? "border-[#0033E1] bg-[#e8eeff]" : "border-gray-200 hover:border-gray-300"
                   )}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <div className="text-xs font-semibold text-gray-800 leading-tight">{chunk.title}</div>
+                      <div className="text-xs font-semibold text-[#333333] leading-tight">{chunk.title}</div>
                       <div className="text-xs text-gray-400 mt-0.5">{chunk.source}</div>
                     </div>
                     <ChevronRight size={12} className="text-gray-400 flex-none mt-0.5" />
@@ -380,14 +376,14 @@ export default function ServiceWorkspace() {
           <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Knowledge Base</h4>
           <div className="space-y-1">
             {[
-              { name: "Academic Catalog 2025–2026", docs: 5, category: "Programs" },
-              { name: "Enrollment & Admissions Policy", docs: 3, category: "Enrollment" },
-              { name: "Financial Aid FAQ 2025", docs: 3, category: "Financial" },
-              { name: "Student Handbook 2025–2026", docs: 4, category: "Services" },
+              { name: "Academic Catalog 2025–2026", docs: 5 },
+              { name: "Enrollment & Admissions Policy", docs: 3 },
+              { name: "Financial Aid FAQ 2025", docs: 3 },
+              { name: "Student Handbook 2025–2026", docs: 4 },
             ].map((kb) => (
-              <div key={kb.name} className="flex items-center justify-between py-1.5 px-2 rounded hover:bg-gray-50">
+              <div key={kb.name} className="flex items-center justify-between py-1.5 px-2 rounded hover:bg-[#F8F8F8]">
                 <div>
-                  <div className="text-xs font-medium text-gray-700">{kb.name}</div>
+                  <div className="text-xs font-medium text-[#333333]">{kb.name}</div>
                   <div className="text-xs text-gray-400">{kb.docs} chunks</div>
                 </div>
                 <span className="text-xs text-emerald-600 font-medium">Active</span>
