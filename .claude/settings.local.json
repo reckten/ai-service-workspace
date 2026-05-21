@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "WebFetch(domain:brandfetch.com)",
+      "WebFetch(domain:www.devry.edu)",
+      "WebSearch",
+      "WebFetch(domain:logotyp.us)",
+      "WebFetch(domain:logos.fandom.com)",
+      "WebFetch(domain:seeklogo.com)",
+      "WebFetch(domain:www.answers.com)",
+      "WebFetch(domain:bootflare.com)",
+      "WebFetch(domain:jobs.dayforcehcm.com)",
+      "WebFetch(domain:www.linkedin.com)",
+      "WebFetch(domain:shopdevrystore.com)"
+    ]
+  }
+}
