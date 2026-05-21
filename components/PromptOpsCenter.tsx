@@ -127,7 +127,7 @@ export default function PromptOpsCenter() {
                 >
                   <div className="flex items-center gap-1.5">
                     <span className="font-mono font-bold text-sm text-[#333333]">{pv.version}</span>
-                    {isActive && <div className="w-1.5 h-1.5 bg-[#0033E1] rounded-full animate-pulse" />}
+                    {isActive && <div className="w-1.5 h-1.5 bg-[#FFD200] rounded-full animate-pulse" />}
                   </div>
                   <span className="text-xs text-gray-500 truncate">{pv.changelog}</span>
                   <StatusBadge status={pv.status} />

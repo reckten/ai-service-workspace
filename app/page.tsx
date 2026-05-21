@@ -25,7 +25,7 @@ export default function Home() {
     <div className="flex flex-col h-screen overflow-hidden">
       <Header />
 
-      {/* Tab Bar */}
+      {/* Tab Bar — yellow active underline, DeVry blue active text */}
       <div className="bg-white border-b border-gray-200 flex-none">
         <div className="flex overflow-x-auto">
           {TABS.map((tab) => {
@@ -38,7 +38,7 @@ export default function Home() {
                 className={cn(
                   "flex items-center gap-2 px-5 py-3 text-sm font-medium border-b-2 transition-all whitespace-nowrap",
                   isActive
-                    ? "text-[#0033E1] border-[#0033E1] bg-[#e8eeff]"
+                    ? "text-[#0033E1] border-[#FFD200] bg-[#e8eeff]"
                     : "text-gray-500 border-transparent hover:text-[#0033E1] hover:bg-[#e8eeff]"
                 )}
               >

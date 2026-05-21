@@ -1,21 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --devry-blue: #0033E1;
-  --devry-blue-dark: #0026b0;
-  --devry-blue-light: #e8eeff;
-  --devry-blue-muted: #d0d9ff;
-  --devry-alabaster: #F8F8F8;
-  --devry-mine-shaft: #333333;
-  --devry-gray-200: #e5e5e5;
-  --devry-gray-100: #f5f5f5;
+  /* DeVry Official Brand Colors */
+  --devry-blue: #0033E1;        /* Science Blue — primary */
+  --devry-blue-dark: #001C8C;   /* Dark Navy — logo shadow/depth */
+  --devry-blue-hover: #0026b0;  /* Hover state */
+  --devry-blue-light: #e8eeff;  /* Tinted backgrounds */
+  --devry-yellow: #FFD200;      /* Gold accent — logo bottom panel */
+  --devry-yellow-dark: #e6bd00; /* Hover state for yellow */
+  --devry-alabaster: #F8F8F8;   /* Near-white background */
+  --devry-mine-shaft: #333333;  /* Primary text */
   --devry-white: #ffffff;
 
+  /* Status colors */
   --status-deployed: #16a34a;
   --status-staged: #2563eb;
   --status-draft: #6b7280;
   --status-deprecated: #9ca3af;
 
+  /* Quality colors */
   --quality-strong: #16a34a;
   --quality-moderate: #d97706;
   --quality-weak: #dc2626;
@@ -25,11 +28,7 @@
   --foreground: #333333;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   background: var(--devry-alabaster);
@@ -47,7 +46,6 @@ body {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
